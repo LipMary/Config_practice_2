@@ -37,7 +37,8 @@ def load_config(file_path):
                 raise ValueError(f"Ошибка синтаксиса в строке {line_num}")
             parts = clean.split("=", maxsplit=1)
             if len(parts) != KEY_VALUE_PARTS:
-                raise ValueError(f"Неверная пара ключ-значение в строке {line_num}")
+                raise ValueError(
+                    f"Неверная пара ключ-значение в строке {line_num}")
             key = parts[0].strip()
             config[key] = parse_toml_value(parts[1])
 
@@ -50,7 +51,8 @@ def validate_config(config):
     missing = REQUIRED_KEYS - set(config.keys())
     if missing:
         raise ValueError(f"Отсутствуют параметры: {', '.join(missing)}")
-    if not isinstance(config["package_name"], str) or not config["package_name"]:
+    if not isinstance(
+        config["package_name"], str) or not config["package_name"]:
         raise ValueError("Имя пакета должно быть непустой строкой")
     if not isinstance(config["repo_url"], str) or not config["repo_url"]:
         raise ValueError("URL или путь репозитория должен быть строкой")
